@@ -13,23 +13,21 @@ export default class FindClientUseCase {
 
   async execute(input: FindClientUseCaseInputDto): Promise<FindClientUseCaseOutputDto> {
 
-    const result = await this._clientRepository.find(input.id)
+    const client = await this._clientRepository.find(input.id)
 
     return {
-      id: result.id.id,
-      name: result.name,
-      email: result.email,
-      document: result.document,
-      address: new Address(
-        result.address.street,
-        result.address.number,
-        result.address.complement,
-        result.address.city,
-        result.address.state,
-        result.address.zipCode,
-      ),
-      createdAt: result.createdAt,
-      updatedAt: result.updatedAt
-    }
+      id: client.id.id,
+      name: client.name,
+      email: client.email,
+      document: client.document,
+      street: client.address.street,
+      number: client.address.number,
+      complement: client.address.complement,
+      city: client.address.city,
+      state: client.address.state,
+      zipCode: client.address.zipCode,
+      createdAt: client.createdAt,
+      updatedAt: client.updatedAt,
+    };
   }
 }
